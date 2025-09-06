@@ -2,6 +2,21 @@
 
 Спиок тестов:
 
+test_get_book_genre_existing_book_without_genre_returns_empty_string
+ Проверяет, что книга без жанра возвращает пустую строку
+
+test_get_book_genre_after_setting_returns_genre
+ Проверяет, что после установки жанра возвращается корректное значение жанра
+
+test_get_book_genre_nonexistent_book_returns_none
+ Проверяет, что для несуществующей книги возвращается None
+
+test_get_books_genre_initially_empty_dict
+ Проверяет, что словарь со списком жанров пуст после инициализации
+
+test_get_books_genre_contains_added_books
+ Проверяет,жанр у двух книг, одна из книг без жанра, жанр второй соответствует заданному
+ 
 test_new_book_init_no_genre
  Проверяет, что у новой добавленной книги изначально нет жанра
 
@@ -40,6 +55,9 @@ test_set_book_genre_nonexistent_book_ignored
 
 test_get_books_with_specific_genre_invalid_returns_empty_list
  Проверяет, что при запросе по недопустимому жанру возвращается пустой список
+
+test_get_books_with_specific_genre_returns_books
+ Проверяет возврат только книг заданного жанра
 
 test_get_books_with_specific_genre_no_books_returns_empty_list
  Проверяет, что при отсутствии книг возвращается пустой список

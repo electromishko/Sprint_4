@@ -4,7 +4,39 @@ from main import BooksCollector
 
 class TestBooksCollector:
 
-    # Тесты для метода add_new_book   
+    def test_get_book_genre_existing_book_without_genre_returns_empty_string(self):
+        collector = BooksCollector()
+        collector.add_new_book('Книга1')
+        assert collector.get_book_genre('Книга1') == ''
+
+    def test_get_book_genre_after_setting_returns_genre(self):
+        collector = BooksCollector()
+        collector.add_new_book('Книга2')
+        collector.set_book_genre('Книга2', 'Комедии')
+        assert collector.get_book_genre('Книга2') == 'Комедии'
+
+    def test_get_book_genre_nonexistent_book_returns_none(self):
+        collector = BooksCollector()
+        assert collector.get_book_genre('Несуществующая книга') is None
+
+    def test_get_books_genre_initially_empty_dict(self):
+        collector = BooksCollector()
+        result = collector.get_books_genre()
+        assert isinstance(result, dict)
+        assert result == {}
+
+    def test_get_books_genre_contains_added_books(self):
+        collector = BooksCollector()
+        collector.add_new_book('Книга1')
+        collector.add_new_book('Книга2')
+        collector.set_book_genre('Книга2', 'Фантастика')
+        result = collector.get_books_genre()
+        assert isinstance(result, dict)
+        assert len(result) == 2
+        assert 'Книга1' in result
+        assert 'Книга2' in result
+        assert result['Книга1'] == ''
+        assert result['Книга2'] == 'Фантастика'
 
     def test_new_book_init_no_genre(self):
         collector = BooksCollector()
@@ -57,6 +89,20 @@ class TestBooksCollector:
         collector.add_new_book('Книга')
         result = collector.get_books_with_specific_genre('Несуществующий жанр')
         assert result == []
+
+    def test_get_books_with_specific_genre_returns_books(self):
+        collector = BooksCollector()
+        collector.add_new_book('Книга1')
+        collector.set_book_genre('Книга1', 'Фантастика')
+        collector.add_new_book('Книга2')
+        collector.set_book_genre('Книга2', 'Фантастика')
+        collector.add_new_book('Книга3')
+        collector.set_book_genre('Книга3', 'Комедии')
+        result = collector.get_books_with_specific_genre('Фантастика')
+        assert len(result) == 2
+        assert 'Книга1' in result
+        assert 'Книга2' in result
+        assert 'Книга3' not in result
 
     def test_get_books_with_specific_genre_no_books_returns_empty_list(self):
         collector = BooksCollector()
